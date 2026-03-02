@@ -16,10 +16,17 @@ import java.nio.charset.StandardCharsets;
 public class GutendexClient {
     private static final String BASE_URL = "https://gutendex.com/books";
 
-    private final HttpClient httpClient = HttpClient.newBuilder()
-            .followRedirects(HttpClient.Redirect.NORMAL)
-            .build();
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final HttpClient httpClient;
+    private final ObjectMapper objectMapper;
+
+    public GutendexClient() {
+        this(HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build(), new ObjectMapper());
+    }
+
+    GutendexClient(HttpClient httpClient, ObjectMapper objectMapper) {
+        this.httpClient = httpClient;
+        this.objectMapper = objectMapper;
+    }
 
     public BookResponse buscarLibros(String query) throws IOException, InterruptedException {
         String url = BASE_URL + "?search=" + URLEncoder.encode(query, StandardCharsets.UTF_8);

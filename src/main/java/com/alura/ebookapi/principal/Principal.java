@@ -21,12 +21,17 @@ public class Principal {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final GutendexClient client;
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
     public Principal(BookRepository bookRepository, AuthorRepository authorRepository, GutendexClient client) {
+        this(bookRepository, authorRepository, client, new Scanner(System.in));
+    }
+
+    Principal(BookRepository bookRepository, AuthorRepository authorRepository, GutendexClient client, Scanner scanner) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.client = client;
+        this.scanner = scanner;
     }
 
     public void exibirMenu() {
